@@ -1,0 +1,4 @@
+1 - pip install Flask
+
+2 - pip freeze
+    show the packages that are installed
