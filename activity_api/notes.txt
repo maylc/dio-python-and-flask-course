@@ -2,3 +2,14 @@ pip install sqlalchemy
 pip install Flask
 pip install flask-restful
 pip freeze > requirements.txt
+pip install flask-httpauth
+
+
+https://flask-httpauth.readthedocs.io/en/latest/
+
+To send requests on Postman using authentication:
+
+1 - Go to "Authorization" tab
+2 - On "type", put "Basic Auth"
+3 - Fill "Username" and "Password"
+4 - Click send
