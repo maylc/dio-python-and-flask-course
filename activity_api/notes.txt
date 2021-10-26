@@ -1,1 +1,4 @@
 pip install sqlalchemy
+pip install Flask
+pip install flask-restful
+pip freeze > requirements.txt
