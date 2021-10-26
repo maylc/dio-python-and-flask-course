@@ -1,13 +1,36 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_httpauth import HTTPBasicAuth
+from models import People, Activities, Users
 
-from models import People, Activities
-
+auth = HTTPBasicAuth()
 app = Flask(__name__)
 api = Api(app)
 
 
+# USERS = {
+#     'Mary': '123',
+#     'John': '456'
+# }
+
+# @auth.verify_password
+# def verify(login, password):
+#     if not (login, password):
+#         return False
+#
+#     return USERS.get(login) == password
+
+@auth.verify_password
+def verify(login, password):
+    if not (login, password):
+        return False
+
+    return Users.query.filter_by(login=login, password=password).first()
+
+
 class Person(Resource):
+
+    @auth.login_required
     def get(self, name):
         person = People.query.filter_by(name=name).first()
 
@@ -53,6 +76,8 @@ class Person(Resource):
 
 
 class ListPeople(Resource):
+
+    @auth.login_required
     def get(self):
         people = People.query.all()
         response = [{'id': i.id, 'name': i.name, 'age': i.age} for i in people]
